@@ -1,3 +1,6 @@
+var Pomelo = require('pomelo'),
+  path = require('path');
+
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -19,5 +22,15 @@ module.exports = function(grunt) {
     }
   }); 
 
-  grunt.registerTask('default', ['browserify', 'uglify']);
+  grunt.registerTask('pomelo', function () {
+    console.log('Starting Pomelo...');
+    Pomelo.manager.start({
+      appFile: path.resolve(__dirname, 'pong.js'),
+      logDir: path.resolve(__dirname, 'log'),
+      daemon: true
+    });                             
+    console.log('Pomelo started.')                                                                                                                                                                                                                                                                                                                                       
+  });
+
+  grunt.registerTask('default', ['browserify', 'uglify', 'pomelo']);
 }

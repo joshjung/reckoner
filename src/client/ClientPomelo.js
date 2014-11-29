@@ -1,47 +1,52 @@
-var JClass = require('jclass'),
-  Protocol = require('./ClientProtocol');
+var EventDispatcher = require('../EventDispatcher'),
+  Protocol = require('./ClientProtocol'),
+  io = require('../../node_modules/socket.io-browserify/dist/socket.io');
 
 var socket = null,
   id = 1,
   callbacks = {};
 
-var Pomelo = JClass.extend({
+
+var Pomelo = EventDispatcher._extend({
   init: function (host, port, callback){
     this.url = 'ws://' + host + (port ? ':' + port : '');
 
-    socket = io.connect(this.url, {
-      'force new connection': true,
-      reconnect: false
-    });
+    if (typeof window !== 'undefined')
+    {
+      socket = io.connect(this.url, {
+        'force new connection': true,
+        reconnect: false
+      });
 
-    socket.on('connect', function(){
-      console.log('[Pomeloclient.init] websocket connected!');
-      if (callback)
-        callback(socket);
-    });
+      socket.on('connect', function(){
+        console.log('[Pomeloclient.init] websocket connected!');
+        if (callback)
+          callback(socket);
+      });
 
-    socket.on('reconnect', function() {
-      console.log('Pomelo reconnect');
-    });
+      socket.on('reconnect', function() {
+        console.log('Pomelo reconnect');
+      });
 
-    socket.on('message', function (data){
-      if(typeof data === 'string')
-        data = JSON.parse(data);
+      socket.on('message', function (data){
+        if(typeof data === 'string')
+          data = JSON.parse(data);
 
-      if(data instanceof Array) {
-        this.processMessageBatch(data);
-      } else {
-        this.processMessage(data);
-      }
-    });
+        if(data instanceof Array) {
+          this.processMessageBatch(data);
+        } else {
+          this.processMessage(data);
+        }
+      });
 
-    socket.on('error', function(err) {
-      console.log(err);
-    });
+      socket.on('error', function(err) {
+        console.log(err);
+      });
 
-    socket.on('disconnect', function(reason) {
-      this.emit('disconnect', reason);
-    });
+      socket.on('disconnect', function(reason) {
+        this.emit('disconnect', reason);
+      });
+    }
   },
   disconnect: function() {
     if(socket) {
@@ -122,3 +127,4 @@ var Pomelo = JClass.extend({
   }
 });
 
+module.exports = Pomelo;

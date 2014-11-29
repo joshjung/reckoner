@@ -31,7 +31,7 @@ var ClientToServerInterface = JClass._extend({
     this.client = client;
     this.deadReckoning = new DeadReckoning(this.getDeadReckoningInterface());
 
-    pomelo.on('disconnect', this.pomelo_disconnectHandler.bind(this))
+    client.pomelo.on('disconnect', this.pomelo_disconnectHandler.bind(this))
   },
   start: function (rid) {
     this.rid = rid;

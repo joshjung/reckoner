@@ -5,7 +5,7 @@ var merge = require('merge'),
 	FeatureManager = require('./features/FeatureManager'),
   JClass = require('jclass'),
   HashArray = require('hasharray'),
-	EventDispatcher = require('./EventDispatcher');
+	EventDispatcher = require('../EventDispatcher');
 
 /*===================================================*\
  * GameObject()

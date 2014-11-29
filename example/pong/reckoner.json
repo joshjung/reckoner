@@ -1,0 +1,75 @@
+{
+  "master": {
+    "development": {
+      "id": "master-server-1", "host": "local.pong-reckoner-demo.com", "port": 2080
+    },
+    "staging": {
+      "id": "master-server-1", "host": "stage.pong-reckoner-demo.com", "port": 2081
+    },
+    "production": {
+      "id": "master-server-1", "host": "www.pong-reckoner-demo.com", "port": 2080
+    }
+  },
+  "server": {
+    "development": {
+        "gate": [{
+            "id": "gate-server-1",
+            "host": "local.pong-reckoner-demo.com",
+            "clientPort": 3080,
+            "frontend": true
+        }],
+        "connector": [{
+            "id": "connector-server-1",
+            "host": "local.pong-reckoner-demo.com",
+            "port": 4080,
+            "clientPort": 4088,
+            "frontend": true
+        }],
+        "pong": [{
+            "id": "pong-reckoner-demo-server-1",
+            "host": "local.pong-reckoner-demo.com",
+            "port": 5080
+        }]
+    },
+    "staging": {
+        "gate": [{
+            "id": "gate-server-1",
+            "host": "stage.pong-reckoner-demo.com",
+            "clientPort": 3081,
+            "frontend": true
+        }],
+        "connector": [{
+            "id": "connector-server-1",
+            "host": "stage.pong-reckoner-demo.com",
+            "port": 4081,
+            "clientPort": 4089,
+            "frontend": true
+        }],
+        "pong": [{
+            "id": "pong-reckoner-demo-server-1",
+            "host": "stage.pong-reckoner-demo.com",
+            "port": 5081
+        }]
+    },
+    "production": {
+        "gate": [{
+            "id": "gate-server-1",
+            "host": "www.pong-reckoner-demo.com",
+            "clientPort": 3080,
+            "frontend": true
+        }],
+        "connector": [{
+            "id": "connector-server-1",
+            "host": "www.pong-reckoner-demo.com",
+            "port": 4080,
+            "clientPort": 4088,
+            "frontend": true
+        }],
+        "pong": [{
+            "id": "pong-reckoner-demo-server-1",
+            "host": "www.pong-reckoner-demo.com",
+            "port": 5080
+        }]
+    }
+  }
+}

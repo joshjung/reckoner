@@ -10,9 +10,9 @@ fi
 cd game-server
 CMD="pomelo start -e $ENV"
 echo "$CMD"
-nohup sh -c "$CMD" > ../shared/log/game-server.log &
+nohup sh -c "$CMD" > ../log/game-server.log &
 cd ../web-server
-nohup sh -c "$CMD" > ../shared/log/web-server.log &
+nohup sh -c "$CMD" > ../log/web-server.log &
 echo '-----------------------Waiting----------------------'
 sleep 5
 echo '-----------------------Catting-----------------------'

@@ -1,4 +1,4 @@
-var Reckoner = require('../../../index');
+var Reckoner = require('reckoner');
 
 var PongClient = Reckoner.Client._extend({
   init: function init() {
