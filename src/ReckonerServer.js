@@ -24,8 +24,6 @@ var ReckonerServer = ReckonerBase._extend({
 
     this.pomelo = pomelo;
 
-    this.messaging = pomelo.get('messagingService');
-
     this.games = new HashArray('rid');
 
     this.lastTime = undefined;

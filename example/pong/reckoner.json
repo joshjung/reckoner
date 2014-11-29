@@ -10,7 +10,7 @@
       "id": "master-server-1", "host": "www.pong-reckoner-demo.com", "port": 2080
     }
   },
-  "server": {
+  "servers": {
     "development": {
         "gate": [{
             "id": "gate-server-1",

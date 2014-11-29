@@ -23,13 +23,11 @@ module.exports = function(grunt) {
   }); 
 
   grunt.registerTask('pomelo', function () {
-    console.log('Starting Pomelo...');
     Pomelo.manager.start({
       appFile: path.resolve(__dirname, 'pong.js'),
       logDir: path.resolve(__dirname, 'log'),
-      daemon: true
+      daemon: false
     });                             
-    console.log('Pomelo started.')                                                                                                                                                                                                                                                                                                                                       
   });
 
   grunt.registerTask('default', ['browserify', 'uglify', 'pomelo']);
