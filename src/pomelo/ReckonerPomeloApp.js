@@ -1,4 +1,5 @@
 var JClass = require('jclass'),
+    fs = require('fs'),
     pomelo = require('pomelo');
 
 global.isClient = false;
@@ -6,7 +7,7 @@ global.isClient = false;
 var ReckonerPomeloApp = JClass._extend({
   init: function (name, gameServerClass, options) {
     if (options.verbose)
-      console.log('Creating Pomelo Application with options', options);
+      console.log('Creating Pomelo Application');
 
     this.options = options || {};
     this.name = name;
@@ -49,7 +50,7 @@ var ReckonerPomeloApp = JClass._extend({
   },
   setupAllHandler: function () {
     if (this.options.pidFile)
-      fs.appendFileSync(pidFile, process.pid.toString() + '\n');
+      fs.appendFileSync(this.options.pidFile, process.pid.toString() + '\n');
 
     this.app.route(this.name, this.routeHandler.bind(this));
     this.app.filter(pomelo.timeout());

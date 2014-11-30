@@ -1,5 +1,7 @@
 var Pomelo = require('pomelo'),
-  path = require('path');
+  fs = require('fs'),
+  path = require('path'),
+  pidFile = 'pid';
 
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
@@ -22,6 +24,25 @@ module.exports = function(grunt) {
     }
   }); 
 
+  grunt.registerTask('kill', function () {
+    if (fs.existsSync(pidFile))
+    {
+      var pids = fs.readFileSync(pidFile).toString().split(/\n/).map(function (i) {return parseInt(i);});
+
+      pids.forEach(function (pid) {
+        if (!pid) return;
+        console.log('Killing pid: ', pid);
+        try {
+          process.kill(pid, 'SIGKILL');
+        }
+        catch (err){
+        }
+      });
+
+      fs.unlink(pidFile);
+    }
+  });
+
   grunt.registerTask('pomelo', function () {
     Pomelo.manager.start({
       appFile: path.resolve(__dirname, 'pong.js'),
@@ -30,5 +51,9 @@ module.exports = function(grunt) {
     });                             
   });
 
-  grunt.registerTask('default', ['browserify', 'uglify', 'pomelo']);
+  grunt.registerTask('start', ['pomelo']);
+  grunt.registerTask('restart', ['kill', 'start']);
+  grunt.registerTask('build', ['browserify', 'uglify']);
+
+  grunt.registerTask('default', ['build', 'restart']);
 }
